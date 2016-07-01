@@ -25,8 +25,8 @@
 		 <!--write-timeout="0" -->
 		 <!--write-fsync="true" />-->
 	<!--</mongo:mongo>-->
-	<mongo:db-factory dbname="admin" host="localhost" port="27017"
-					  username="admin" password="admin123" />
+	<mongo:db-factory dbname="${mongo.dbname}" host="${mongo.host}" port="${mongo.port}"
+					  username="${mongo.username}" password="${mongo.password}" />
 
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>

@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,7 +23,7 @@ public class TestController
 	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
 	@RequestMapping(value="test",method=RequestMethod.GET)
-	public String test(){
+	public ModelAndView test(){
 		UserInfo userInfo1 = new UserInfo();
 		userInfo1.setNickname("nico");
 		userInfo1.setUsername("nicoHuang");
@@ -31,7 +32,6 @@ public class TestController
 
 		String name = "userInfo"+ format.format(new Date());
 
-
 		List<UserInfo> userInfoList =mongoTemplate.findAll(UserInfo.class,name);
 
 
@@ -39,7 +39,10 @@ public class TestController
 		{
 			System.out.println(JSON.toJSONString(userInfo));
 		}
-		return "test";
+
+		ModelAndView modelAndView = new ModelAndView("test");
+		modelAndView.addObject("userInfos",userInfoList);
+		return modelAndView;
 	}
 
 }
